@@ -1,0 +1,146 @@
+W0504 04:19:22.186361   65564 cpp_gen_intrinsics.cc:74] Empty bitcode string provided for eigen. Optimizations relying on this IR will be disabled.
+==============================================================
+  Pec-King Order Simulation -- CSCI 5512 HW5
+==============================================================
+  M=64 agents  |  N_coop=4  |  k=4  |  T=256 tournaments  |  seed=1257302942
+  Agent types: 4 Set-A  |  4 Set-B  |  56 NPCs
+  Observation shape: (4102,)
+  Ability PMF (truncated Poisson): [0.5553 0.2623 0.1239 0.0585]
+  Abilities written to tracing/chicken_abilities.txt
+
+  [TRACK] NPC trace: chicken_63 -> tracing/chicken_trace.txt
+  [TRACK] Abilities: [3, 1, 3, 1]
+  [TRACK] Strategic traces -> tracing/agent_setA_*.txt  tracing/agent_setB_*.txt
+  Compiling step_env... done
+  Starting simulation: 64 agents, 4 coops, 256 tournaments
+  Tournament   25/256 done  (step 439)
+  Tournament   50/256 done  (step 871)
+  Tournament   75/256 done  (step 1303)
+  Tournament  100/256 done  (step 1736)
+  Tournament  125/256 done  (step 2173)
+  Tournament  150/256 done  (step 2604)
+  Tournament  175/256 done  (step 3027)
+  Tournament  200/256 done  (step 3452)
+  Tournament  225/256 done  (step 3873)
+  Tournament  250/256 done  (step 4301)
+  Tournament  256/256 done  (step 4402)
+
+==============================================================
+  Simulation complete
+==============================================================
+  4402 total steps across 256 tournaments
+  Total time:  30m 31.4s
+  Per step:    416.0 ms
+  Per tournament: 7.15s avg
+  BattleHistory nonzero entries: 175244
+
+==============================================================
+  Final Sack Scores (HW5)
+==============================================================
+  Total crowns in circulation: 1181
+
+  Top 10 scorers:
+  Rank   Chicken  Type      Score
+  -----------------------------------
+     1  chicken_23     NPC      250.00
+     2  chicken_38     NPC      150.00
+     3  chicken_10     NPC      123.00
+     4  chicken_21     NPC       82.00
+     5  chicken_44     NPC       43.00
+     6  chicken_17     NPC       36.00
+     7  chicken_35     NPC       35.00
+     8  chicken_55     NPC       33.00
+     9  chicken_3      SetA      32.00
+    10  chicken_2      SetA      32.00
+
+  Set-A wins (any in top 10): True
+  Set-B wins (any in top 10): False
+
+  --------------------------------------------------------------
+  Crown Frequency Summary  (256 tournaments)
+  --------------------------------------------------------------
+  Coop  Sim King  Crowns    Rate  Match  Top-5 (chicken: crowns)
+  --------------------------------------------------------------
+     0        23     250  97.7%    yes  c23:250  c63:4  c1:4  c19:3  c5:2
+        Possible true kings: [23]  (ability=4)
+     1        21      70  27.3%    yes  c21:70  c1:49  c44:43  c17:36  c35:35
+        Possible true kings: [1, 17, 21, 35, 41, 44, 57]  (ability=4)
+     2         0      36  14.1%    yes  c0:36  c55:33  c34:32  c53:27  c46:26
+        Possible true kings: [0, 2, 5, 11, 14, 19, 21, 34, 46, 49, 53, 55, 63]  (ability=3)
+     3        38     150  58.6%    yes  c38:150  c10:123  c2:11  c45:4  c1:4
+        Possible true kings: [10, 38]  (ability=4)
+  --------------------------------------------------------------
+
+==============================================================
+  HW5 Strategy Analysis
+==============================================================
+
+  1. Score distribution by agent type
+  Agent type | Count |      Min |     Mean |      Max | Top scorer
+  ------------------------------------------------------------------------
+  NPC        |    56 |     0.00 |    18.27 |   250.00 | chicken_23 (250.00)
+  Set-A      |     4 |    32.00 |    32.00 |    32.00 | chicken_0 (32.00)
+  Set-B      |     4 |     7.50 |     7.50 |     7.50 | chicken_4 (7.50)
+
+  2. Set-B coop convergence
+  Agent        | Final coop | n_visits per coop            | True best | Match
+  ------------------------------------------------------------------------
+  chicken_4    | coop     3 | [11180, 11180, 11310, 17530] | coop    3 | yes
+  chicken_5    | coop     2 | [11890, 11140, 17040, 11130] | coop    0 | no
+  chicken_6    | coop     0 | [12800, 12800, 12800, 12800] | coop    0 | yes
+  chicken_7    | coop     0 | [12800, 12800, 12800, 12800] | coop    0 | yes
+
+  3. Set-A reward history
+  Agent        | Total crowns | Tourns | Avg/tourn | Best tourn
+  -----------------------------------------------------------------
+  chicken_0    |           39 |    256 |      0.15 | t=3 (+1)
+  chicken_1    |           57 |    256 |      0.22 | t=20 (+2)
+  chicken_2    |           30 |    256 |      0.12 | t=1 (+2)
+  chicken_3    |            2 |    256 |      0.01 | t=125 (+1)
+
+  4. Sack co-ownership map
+  chicken_0    | co-owners [1, 2, 3] | sack     39 | 9.75 per owner
+  chicken_1    | co-owners [0, 2, 3] | sack     57 | 14.25 per owner
+  chicken_2    | co-owners [0, 1, 3] | sack     30 | 7.50 per owner
+  chicken_3    | co-owners [0, 1, 2] | sack      2 | 0.50 per owner
+  chicken_4    | co-owners [5, 6, 7] | sack      3 | 0.75 per owner
+  chicken_5    | co-owners [4, 6, 7] | sack     27 | 6.75 per owner
+  chicken_6    | co-owners [4, 5, 7] | sack      0 | 0.00 per owner
+  chicken_7    | co-owners [4, 5, 6] | sack      0 | 0.00 per owner
+
+  5. Win determination
+  Set-A final scores: [32.0, 32.0, 32.0, 32.0]
+  Set-B final scores: [7.5, 7.5, 7.5, 7.5]
+  Winner: NPC field
+
+  6. Strategic agent ability context
+  Agent        Type     Abilities              Best  Val Rivals  Crowns
+  --------------------------------------------------------------------
+  chicken_0    Set-A    [1, 1, 3, 1]              2    3     10      39
+  chicken_1    Set-A    [2, 4, 1, 3]              1    4      6      57
+  chicken_2    Set-A    [1, 1, 3, 3]              2    3     10      30
+  chicken_3    Set-A    [1, 1, 2, 1]              2    2     16       2
+  chicken_4    Set-B    [1, 1, 2, 3]              3    3      7       3
+  chicken_5    Set-B    [3, 1, 3, 1]              0    3     10      27
+  chicken_6    Set-B    [3, 2, 1, 1]              0    3     10       0
+  chicken_7    Set-B    [1, 1, 1, 1]              0    1     32       0
+
+  chicken_0: ability=3 in coop2, competing against 10 NPCs with the same ability
+    -> hard field
+  chicken_1: ability=4 in coop1, competing against 6 NPCs with the same ability
+    -> hard field
+  chicken_2: ability=3 in coop2, competing against 10 NPCs with the same ability
+    -> hard field
+  chicken_3: ability=2 in coop2, competing against 16 NPCs with the same ability
+    -> hard field
+  chicken_4: ability=3 in coop3, competing against 7 NPCs with the same ability
+    -> hard field
+  chicken_5: ability=3 in coop0, competing against 10 NPCs with the same ability
+    -> hard field
+  chicken_6: ability=3 in coop0, competing against 10 NPCs with the same ability
+    -> hard field
+  chicken_7: ability=1 in coop0, competing against 32 NPCs with the same ability
+    -> hard field
+
+  --------------------------------------------------------------
+  [TRACK] Closed 8 strategic trace files + NPC trace (tracing/chicken_trace.txt)
