@@ -74,6 +74,8 @@ Edit the flags at the top of `run.py`:
 
 Strategic agent traces are written to `tracing/agent_setA_*.txt` and `tracing/agent_setB_*.txt` on every run. The seed used is printed in the run header so any run can be exactly reproduced.
 
+Two complete runs are archived in `example_runs/` — one with `SEED=42` (the K-sweep reference seed) and one unseeded run — so you can inspect outputs without running the simulation yourself. Each folder contains `chicken_abilities.txt`, `chicken_trace.txt`, `agent_setA_*.txt`, `agent_setB_*.txt`, and a `run_summary.md` with the terminal output and final scores.
+
 Simulation time scales with `MCTS_K`: approximately 13 min at K=1, 28 min at K=10, 2h at K=50 (CPU, M=64, T=256).
 
 ### Interactive Mode
@@ -543,6 +545,19 @@ pec-king-order/
 ├── run.py                        # Entry point: config, simulation loop, final scoring
 ├── requirements.txt
 ├── conftest.py                   # pytest path resolution
+├── example_runs/                 # Pre-generated outputs — inspect without running
+│   ├── Seed=42/                  # K=10, SEED=42 (K-sweep reference run)
+│   │   ├── chicken_abilities.txt
+│   │   ├── chicken_trace.txt
+│   │   ├── agent_setA_{0..3}.txt
+│   │   ├── agent_setB_{4..7}.txt
+│   │   └── run_summary.md        # Terminal output + final scores
+│   └── Seed=Random/              # K=10, unseeded (variance reference run)
+│       ├── chicken_abilities.txt
+│       ├── chicken_trace.txt
+│       ├── agent_setA_{0..3}.txt
+│       ├── agent_setB_{4..7}.txt
+│       └── run_summary.md
 ├── agents/
 │   └── agent.py                  # NPC, AgentSetA (PPO), AgentSetB (MCTS/UCT)
 ├── envs/

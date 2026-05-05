@@ -1,0 +1,77 @@
+=== All Chicken Abilities ===
+M=64, N_coop=4
+========================================
+
+  #  Name              Type   C0  C1  C2  C3
+  0  chicken_no0       SetA    1   4   2   2
+  1  chicken_no1       SetA    3   1   1   1
+  2  chicken_no2       SetA    1   1   1   2
+  3  chicken_no3       SetA    2   4   1   1
+  4  chicken_no4       SetB    3   2   2   1
+  5  chicken_no5       SetB    1   3   1   1
+  6  chicken_no6       SetB    1   2   1   2
+  7  chicken_no7       SetB    1   2   1   1
+  8  chicken_no8       NPC     1   3   1   1
+  9  chicken_no9       NPC     3   2   1   1
+ 10  chicken_no10      NPC     1   2   2   1
+ 11  chicken_no11      NPC     1   1   4   2
+ 12  chicken_no12      NPC     2   2   2   1
+ 13  chicken_no13      NPC     3   3   4   1
+ 14  chicken_no14      NPC     1   1   2   2
+ 15  chicken_no15      NPC     1   3   3   3
+ 16  chicken_no16      NPC     2   4   4   1
+ 17  chicken_no17      NPC     3   3   1   1
+ 18  chicken_no18      NPC     1   1   3   2
+ 19  chicken_no19      NPC     1   2   2   2
+ 20  chicken_no20      NPC     2   1   1   2
+ 21  chicken_no21      NPC     1   2   3   1
+ 22  chicken_no22      NPC     1   2   2   1
+ 23  chicken_no23      NPC     1   1   1   1
+ 24  chicken_no24      NPC     3   2   3   1
+ 25  chicken_no25      NPC     1   1   1   1
+ 26  chicken_no26      NPC     2   3   1   1
+ 27  chicken_no27      NPC     1   1   3   1
+ 28  chicken_no28      NPC     1   1   3   1
+ 29  chicken_no29      NPC     4   3   2   2
+ 30  chicken_no30      NPC     2   1   1   1
+ 31  chicken_no31      NPC     3   2   1   2
+ 32  chicken_no32      NPC     1   1   1   1
+ 33  chicken_no33      NPC     1   1   1   2
+ 34  chicken_no34      NPC     3   2   1   2
+ 35  chicken_no35      NPC     1   2   2   1
+ 36  chicken_no36      NPC     1   1   1   3
+ 37  chicken_no37      NPC     3   1   2   1
+ 38  chicken_no38      NPC     1   1   2   2
+ 39  chicken_no39      NPC     1   1   1   4
+ 40  chicken_no40      NPC     1   1   1   3
+ 41  chicken_no41      NPC     2   2   1   3
+ 42  chicken_no42      NPC     1   1   2   2
+ 43  chicken_no43      NPC     3   1   1   1
+ 44  chicken_no44      NPC     4   1   2   1
+ 45  chicken_no45      NPC     4   2   3   1
+ 46  chicken_no46      NPC     3   1   1   1
+ 47  chicken_no47      NPC     2   1   3   1
+ 48  chicken_no48      NPC     1   3   1   3
+ 49  chicken_no49      NPC     1   1   1   2
+ 50  chicken_no50      NPC     1   2   1   3
+ 51  chicken_no51      NPC     2   2   1   1
+ 52  chicken_no52      NPC     1   1   2   1
+ 53  chicken_no53      NPC     1   4   2   2
+ 54  chicken_no54      NPC     1   2   1   1
+ 55  chicken_no55      NPC     1   3   2   2
+ 56  chicken_no56      NPC     1   2   1   1
+ 57  chicken_no57      NPC     2   3   1   3
+ 58  chicken_no58      NPC     2   4   2   1
+ 59  chicken_no59      NPC     1   1   1   1
+ 60  chicken_no60      NPC     3   1   3   1
+ 61  chicken_no61      NPC     2   2   3   1
+ 62  chicken_no62      NPC     3   2   1   3
+ 63  chicken_no63      NPC     1   1   3   1
+
+========================================
+Distribution (count per ability value per coop):
+Value   C0   C1   C2   C3
+    1   36   28   33   38
+    2   12   21   17   17
+    3   13   10   11    8
+    4    3    5    3    1
