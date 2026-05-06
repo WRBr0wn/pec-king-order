@@ -204,7 +204,7 @@ Each agent owns a **sack** — a persistent crown wallet that accumulates across
 
 Final score for agent j:
 
-$$\text{score}[j] = \sum_i \frac{\text{sack}[i]}{|\text{owners}(i)|} \quad \text{for all } i \text{ where } \text{sack\_owners}[i,j] = \text{True}$$
+$$\text{score}[j] = \sum_i \frac{\text{sack}[i]}{|\text{owners}(i)|} \quad \text{for all } i \text{ where } \text{sackOwners}[i,j] = \text{True}$$
 
 **Example:** Agent A has sack=120, shared with B and C. Agent B has sack=60, shared with A. Agent C has sack=40, shared with A.
 
@@ -367,7 +367,7 @@ Indices 0–3. Proximal Policy Optimization using a Flax `ActorCritic` network: 
 
 $$r = \Delta\text{crowns} + 0.3 \times (w_t - w_{t-1})$$
 
-where $\Delta\text{crowns} = \text{sack[agent]} - \text{prev\_sack}$ and $w_t$ is the win rate `win_count / (win_count + loss_count)` in the agent's best coop at tournament close $t$. The win-rate delta term reduces variance on the sparse crown signal. All within-tournament transitions have reward 0.0. GAE advantages (γ=0.99, λ=0.95) propagate the signal backwards through the trajectory.
+where $\Delta\text{crowns} = \text{sack[agent]} - \text{prevSack}$ and $w_t$ is the win rate `win_count / (win_count + loss_count)` in the agent's best coop at tournament close $t$. The win-rate delta term reduces variance on the sparse crown signal. All within-tournament transitions have reward 0.0. GAE advantages (γ=0.99, λ=0.95) propagate the signal backwards through the trajectory.
 
 **PPO update** (at each tournament close): 4 epochs × 4 minibatches, clip ε=0.2, value coef=0.5, entropy coef=0.01, Adam lr=2.5e-4 with global norm clipping at 0.5. Trajectories are padded to a fixed multiple of `NUM_MINIBATCHES` to avoid JAX retracing on variable-length rollouts.
 
