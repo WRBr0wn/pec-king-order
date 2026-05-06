@@ -204,7 +204,7 @@ Each agent owns a **sack** — a persistent crown wallet that accumulates across
 
 Final score for agent j:
 
-$$\text{score}[j] = \sum_i \frac{\text{sack}[i]}{|\text{co-owners of sack}_i|} \quad \text{for all } i \text{ where } \texttt{sack\_owners}[i,j] = \text{True}$$
+$$\text{score}[j] = \sum_i \frac{\text{sack}[i]}{|\text{owners}(i)|} \quad \text{for all } i \text{ where } \text{sack\_owners}[i,j] = \text{True}$$
 
 **Example:** Agent A has sack=120, shared with B and C. Agent B has sack=60, shared with A. Agent C has sack=40, shared with A.
 
@@ -365,9 +365,9 @@ Indices 0–3. Proximal Policy Optimization using a Flax `ActorCritic` network: 
 
 **Training loop:** One trajectory is collected per tournament (~17 transitions on average). At tournament close, the last transition receives a sparse shaped reward:
 
-$$r = \text{crowns\_earned} + 0.3 \times (\text{win\_rate} - \text{prev\_win\_rate})$$
+$$r = \Delta\text{crowns} + 0.3 \times (w_t - w_{t-1})$$
 
-where `crowns_earned = sack[agent] - prev_sack` and `win_rate` is computed from `win_count / (win_count + loss_count)` in the agent's best coop. The win-rate delta term reduces variance on the sparse crown signal. All within-tournament transitions have reward 0.0. GAE advantages (γ=0.99, λ=0.95) propagate the signal backwards through the trajectory.
+where $\Delta\text{crowns} = \text{sack[agent]} - \text{prev\_sack}$ and $w_t$ is the win rate `win_count / (win_count + loss_count)` in the agent's best coop at tournament close $t$. The win-rate delta term reduces variance on the sparse crown signal. All within-tournament transitions have reward 0.0. GAE advantages (γ=0.99, λ=0.95) propagate the signal backwards through the trajectory.
 
 **PPO update** (at each tournament close): 4 epochs × 4 minibatches, clip ε=0.2, value coef=0.5, entropy coef=0.01, Adam lr=2.5e-4 with global norm clipping at 0.5. Trajectories are padded to a fixed multiple of `NUM_MINIBATCHES` to avoid JAX retracing on variable-length rollouts.
 
@@ -399,9 +399,9 @@ class AgentSetA:
 
 Indices 4–7. Frames coop selection as a planning problem. No neural network. Architecturally distinct from Set-A: model-based planning via forward simulation rather than model-free policy gradient.
 
-**UCT selection:** At each tournament close, runs `n_iter=20` UCT iterations. Each iteration selects the coop with the highest UCT score:
+**UCT selection:** At each tournament close, runs `n_iter=20` UCT iterations. Each iteration selects the coop with the highest UCT score, where $n$ is the total visit count across all coops and $N[c]$ is visits to coop $c$:
 
-$$\text{UCT}(c) = Q[c] + C_{\text{uct}} \cdot \sqrt{\frac{\log(\text{total\_visits} + 1)}{N[c] + 1}}, \quad C_{\text{uct}} = 1.0$$
+$$\text{UCT}(c) = Q[c] + C \cdot \sqrt{\frac{\log(n + 1)}{N[c] + 1}}, \quad C = 1.0$$
 
 then simulates `MCTS_K` rollouts in that coop using the ability belief forward model. After all iterations, commits to `argmax(Q)` as the target coop for the next tournament.
 
